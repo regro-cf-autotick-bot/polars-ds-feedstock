@@ -1,10 +1,2 @@
 channel_sources:
 - conda-forge/label/rust_dev,conda-forge
-c_compiler:
-  - clang  # [win]
-c_compiler_version:
-  - 17  # [win]
-cxx_compiler:
-  - clangxx  # [win]
-cxx_compiler_version:
-  - 17  # [win]

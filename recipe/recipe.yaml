@@ -1,0 +1,58 @@
+context:
+  name: polars-ds
+  version: "0.12.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/polars_ds-${{ version }}.tar.gz
+  sha256: d7b39c7f70782caa8a0fbc0bf52c6cceaff2f109476540b680f612b6b83f8042
+
+build:
+  number: 0
+  skip:
+    - py < 39
+  script:
+    - python -m pip install . -vv
+    - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+  host:
+    - python
+    - maturin >=1.7.4,<2.0
+    - pip
+  run:
+    - python
+    - polars >=1.4.0,!=1.25,!=1.26,!=1.32.1,!=1.32.2
+    - if: py <= 311
+      then:
+        - typing-extensions
+
+tests:
+  - python:
+      imports:
+        - polars_ds
+      pip_check: true
+
+about:
+  homepage: https://github.com/abstractqqq/polars_ds_extension
+  documentation: https://polars-ds-extension.readthedocs.io/
+  summary: Polars extension for general data science use cases
+  license: MIT
+  license_file:
+    - LICENSE.txt
+    - THIRDPARTY.yml
+
+extra:
+  recipe-maintainers:
+    - abstractqqq
+    - thewchan
+    - xhochy
