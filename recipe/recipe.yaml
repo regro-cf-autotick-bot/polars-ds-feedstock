@@ -12,8 +12,6 @@ source:
 
 build:
   number: 0
-  skip:
-    - py < 39
   script:
     - python -m pip install . -vv
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
@@ -32,7 +30,7 @@ requirements:
   run:
     - python
     - polars >=1.4.0,!=1.25,!=1.26,!=1.32.1,!=1.32.2
-    - if: py <= 311
+    - if: python < "3.12"
       then:
         - typing-extensions
 
