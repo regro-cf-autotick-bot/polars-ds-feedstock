@@ -9,6 +9,8 @@ package:
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/polars_ds-${{ version }}.tar.gz
   sha256: d7b39c7f70782caa8a0fbc0bf52c6cceaff2f109476540b680f612b6b83f8042
+  patches:
+    - patches/update-ethnum.patch
 
 build:
   number: 0
